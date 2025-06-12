@@ -1,0 +1,101 @@
+1. What are missing values and how do you handle them?
+
+Missing values occur when no data value is stored for a variable in an observation.
+Common causes: data entry errors, sensor failures, or merging datasets with mismatched entries.
+
+Handling methods:
+
+	Remove rows/columns with too many missing values (`dropna()`).
+	Impute missing values using:
+
+  	* Mean/Median/Mode
+ 	* Forward or backward fill (`ffill`, `bfill`)
+ 	* Predictive imputation (e.g., regression or KNN)
+
+2. How do you treat duplicate records?
+
+Duplicate records refer to repeated rows in a dataset.
+
+Steps to treat:
+
+* Use `df.duplicated()` to find duplicates.
+* Remove with `df.drop_duplicates()`.
+* Check if partial duplicates exist (e.g., same name, different address), and investigate further.
+
+3. Difference between `dropna()` and `fillna()` in Pandas?
+
+| Function   | Purpose                             | Example Use Case                     |
+| ---------- | ----------------------------------- | -------------------
+| `dropna()` | Removes rows/columns with NA values | When missing data is minimal         |
+| `fillna()` | Fills missing values with a value   | When imputing with 							     mean/median/ffill |
+
+
+4. What is outlier treatment and why is it important?
+
+ Outliers are extreme values significantly different from other observations.
+
+ Why treat outliers?
+
+	* Can skew statistical analyses.
+	* May affect machine learning model performance.
+
+ Treatment methods:
+
+	* Remove using IQR or Z-score method.
+	* Cap/floor using winsorization.
+	* Transform data (e.g., log, square root).
+	* Investigate if it’s a data error or valid extreme case.
+
+5. Explain the process of standardizing data.
+
+Standardization transforms data to have:
+
+	* Mean = 0
+	* Standard deviation = 1
+
+Formula:
+
+$$
+z = \frac{(x - \mu)}{\sigma}
+$$
+
+Why?
+
+	* Ensures features are on the same scale.
+	* Improves performance of models like SVM, KNN, Logistic Regression.
+
+Tool:
+	`from sklearn.preprocessing import StandardScaler`
+
+6. How do you handle inconsistent data formats (e.g., date/time)?**
+
+ Steps:
+
+	* Convert formats using `pd.to_datetime()`.
+	* Standardize time zones if needed.
+	* Clean unwanted strings or formats.
+	* Validate the logical sequence of dates (e.g., end date after start date).
+
+7. What are common data cleaning challenges?
+
+	* Missing or incomplete values
+	* Inconsistent formats (dates, categories)
+	* Duplicate records
+	* Incorrect data types
+	* Outliers
+	* Noise or irrelevant features
+	* Large datasets (scalability issues)
+
+8. How can you check data quality?
+
+ Techniques:
+
+	* `df.info()` and `df.describe()` for quick overview
+	* Check for:
+
+ 	* Missing values (`isnull().sum()`)
+  	* Duplicates (`duplicated().sum()`)
+ 	* Data types (`dtypes`)
+ 	* Unique values in categorical fields
+  	* Outliers using boxplots or statistical methods
+
